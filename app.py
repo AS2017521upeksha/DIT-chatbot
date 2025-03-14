@@ -31,8 +31,8 @@ st.set_page_config(page_title="DIT Chatbot", layout="wide")
 st.title("Welcome to the DIT GPT")
 st.write("© 2024 DIT Chatbot | License to : Department of Information Technology, FMSC, USJ")
 st.write("Ask me anything related to DIT")
-pygame.init()
-pygame.mixer.init()
+# pygame.init()
+# pygame.mixer.init()
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -88,7 +88,7 @@ if user_input is not None:
     st.session_state.messages.append({"role": "assistant", "content": bot_response})
     with st.chat_message("assistant"):
         st.markdown(bot_response)
-        speak(bot_response)
+        #speak(bot_response)
 
 
 
