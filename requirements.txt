@@ -76,3 +76,5 @@ urllib3==2.3.0
 watchdog==6.0.0
 wheel==0.38.4
 zipp==3.19.2
+gTTS ==2.5.4
+pygame==2.6.1
