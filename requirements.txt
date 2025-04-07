@@ -79,5 +79,6 @@ zipp==3.19.2
 gTTS ==2.5.4
 pygame==2.6.1
 google
-
+genai
+types
 
