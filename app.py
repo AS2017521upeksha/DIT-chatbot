@@ -1,8 +1,7 @@
 
 import base64
 import os
-import google as genai
-from google.generativeai import types
+import google.generativeai as genai
 import streamlit as st
 
 
@@ -13,47 +12,24 @@ def generate(input_text, website_context):
         input_text (str): The user's query.
         website_context (str): Preloaded or retrieved text from https://mgt.sjp.ac.lk/itc/
     """
-    client = genai.Client(
-        api_key="AIzaSyCTe1kHewjfs3YKf2E_U1WRGALUDa0GoUM",
-    )
+    
 
-    model = "gemini-2.0-flash"
+    genai.configure(api_key="AIzaSyCTe1kHewjfs3YKf2E_U1WRGALUDa0GoUM")
 
-    # Prompt content with context (RAG-style)
-    contents = [
-        types.Content(
-            role="user",
-            parts=[
-                types.Part.from_text(
-                    text=(
-                        f"You are an assistant that answers user questions using the provided website content.\n"
+    model = genai.GenerativeModel("gemini-2.0-flash")
+
+    prompt = (f"You are an assistant that answers user questions using the provided website content.\n"
                         f"If the user greets, respond with a friendly greeting.\n"
                         f"If the answer cannot be found in the website content, say you don't know.\n\n"
                         f"--- Website Content ---\n{website_context}\n"
-                        f"--- User Question ---\n{input_text}"
-                    )
-                ),
-            ],
-        ),
-    ]
+                        f"--- User Question ---\n{input_text}")
 
-    generate_content_config = types.GenerateContentConfig(
-        response_mime_type="text/plain",
-    )
-
-    full_response = ""
+    # Prompt content with context (RAG-style)
     try:
-        for chunk in client.models.generate_content_stream(
-            model=model,
-            contents=contents,
-            config=generate_content_config,
-        ):
-            full_response += chunk.text
+        response = model.generate_content(prompt)
+        return response.text
     except Exception as e:
-        print(f"An error occurred during generation: {e}")
-        return None
-
-    return full_response
+        return f"⚠️ Error generating response: {e}"
 
 
 st.set_page_config(page_title="DIT Chatbot", layout="wide")
