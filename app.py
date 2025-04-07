@@ -1,7 +1,7 @@
 
 import base64
 import os
-import google.generativeai as genai
+import google as genai
 from google.generativeai import types
 import streamlit as st
 
