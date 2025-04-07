@@ -1,18 +1,11 @@
 
 import base64
 import os
-from google import genai
+import google.generativeai as genai
 from google.genai import types
 import streamlit as st
 
 
-def retrieve_context_from_chromadb(query, top_k=5):
-    client = chromadb.Client()
-    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-    collection = client.get_or_create_collection(name="itc_docs", embedding_function=embedding_fn)
-
-    results = collection.query(query_texts=[query], n_results=top_k)
-    return results['documents'][0]
 
 def generate(input_text, website_context):
     """
