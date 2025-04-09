@@ -14,7 +14,7 @@ def generate(input_text, website_context):
     """
     
 
-    genai.configure(api_key="AIzaSyCTe1kHewjfs3YKf2E_U1WRGALUDa0GoUM")
+    genai.configure(api_key="AIzaSyAr88_1CDwtRjuS2Apwx6mxtDGoESVqzzQ")
 
     model = genai.GenerativeModel("gemini-2.0-flash")
 
@@ -34,8 +34,14 @@ def generate(input_text, website_context):
 
 st.set_page_config(page_title="DIT Chatbot", layout="wide")
 
-st.title("Welcome to the DIT GPT")
-st.write("© 2025 DIT Chatbot | Developed by Upeksha Samarasinghe | License to : Department of Information Technology, FMSC, USJ")
+# Display the logo and title side by side
+col1, col2 = st.columns([1, 5])
+with col1:
+    st.image("logo.png")  # Adjust width as needed
+with col2:
+    st.title("Welcome to the DIT GPT")
+
+st.write("© 2025 DIT Chatbot | Created by Upeksha Samarasinghe | License to : Department of Information Technology, FMSC, USJ")
 st.write("Ask me anything related to DIT")
 
 # Initialize chat history
