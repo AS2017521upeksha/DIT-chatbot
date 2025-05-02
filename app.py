@@ -17,7 +17,7 @@ def generate(input_text, website_context):
     """
 
 
-    genai.configure(api_key=api_key)
+    genai.configure(api_key="AIzaSyAr88_1CDwtRjuS2Apwx6mxtDGoESVqzzQ")
 
     model = genai.GenerativeModel("gemini-2.0-flash")
 
