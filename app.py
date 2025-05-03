@@ -1,13 +1,12 @@
 
-
 import google.generativeai as genai
 import streamlit as st
-from datetime import datetime
-from dotenv import load_dotenv
-import os
+import pymongo
 
-load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+client = pymongo.MongoClient("mongodb+srv://upekshasamarasingher:1234@articles.wjvg9yb.mongodb.net/?retryWrites=true&w=majority&appName=Articles")
+db = client["DITChatBot"]
+collectionFeeds = db["DITChatBotFeeds"]
+
 
 def generate(input_text, website_context):
     """
@@ -40,7 +39,7 @@ st.set_page_config(page_title="DIT Chatbot", layout="wide")
 # Display the logo and title side by side
 col1, col2 = st.columns([1, 5])
 with col1:
-    st.image("logo.png")  # Adjust width as needed  
+    st.image("logo.png")  # Adjust width as needed
 with col2:
     st.title("Welcome to the DIT GPT")
 
@@ -50,7 +49,7 @@ st.write("Ask me anything related to DIT")
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    
+
 
 # Display chat history
 for message in st.session_state.messages:
@@ -65,8 +64,8 @@ with open("itc_website.txt", "r", encoding="utf-8") as f:
     website_context = f.read()
 
 def click_no_button():
-  with open("bot_ns_feedback.txt", "a", encoding="utf-8") as f:
-      f.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] NOT SATISFIED: {user_input}\n")
+  data = {"user_input": user_input, "bot_response": bot_response}
+  collectionFeeds.insert_one(data)
 
 if user_input:
     # Display user message
